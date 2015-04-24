@@ -1,20 +1,36 @@
-<!DOCTYPE html>
-<html>
+---
+layout: default
+title: Home
+cover: false
+---
+
   <head>
   
     <!--- CSS --->
     <link type="text/css" rel="stylesheet" href="stylesheet.css"/>
     
+    <!--- Favicon -->
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>
+
     <!--- Title --->
-    <title>Cobweb: A Catechism</title>
-    
+    <title>Veprose</title>
+    <meta name="description" content="A great resource for learning more about technology and humans, and how they affect each other.">
+    <meta name="keywords" content="prose, technology, human–computer interaction, ux, ui">
+
+
   </head>
   
+
   <body>
   
   	<!--- Header --->
 		<div id="header">
 		
+			<!--- Title --->
+				<h1 class="title">{{ site.name }}</h1>
+
+				<h2 class="subtitle">{{ site.description }}</h2>
+
 			<!--- Navigation --->
 			<div id="navbar">
 			
@@ -27,9 +43,44 @@
 				
 			</div>
 			
-			<!--- Title --->
-			<title>Veprose: Writings on Progress</title>
-			
 		</div>
 		
+
+	<main id="content" class="content" role="main">
+
+		<!---
+	    <div class="extra-pagination inner">
+	        {% include pagination.html %}
+	    </div>
+	    --->
+
+	    {% for post in paginator.posts %}
+
+	    <article class="post">
+	        <header class="post-header">
+	            <h1 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+	        </header>
+	        <section class="post-excerpt">
+	            {{ post.excerpt }} <a class="read-more" href="{{ post.url }}">&raquo;</a>
+	        </section>
+	        <footer class="post-meta">
+	            {% if site.author %}
+	                <img class="author-thumb" src="/assets/images/profile.png" alt="Brennan Brown" nopin="nopin" />
+	                {{ site.author }}
+	            {% endif %}
+	            {% if post.categories.size > 0 %} 
+	                {{ post.categories | array_to_sentence_string | prepend: 'on ' }} 
+	            {% endif %}
+	            <time class="post-date" datetime="{{ post.date | date:"%Y-%m-%d" }}">
+	                {{ post.date | date_to_string }}
+	            </time> 
+	        </footer>
+	    </article>
+
+	    {% endfor %}
+
+	    {% include pagination.html %}
+
+	</main>
+
 	</body>
